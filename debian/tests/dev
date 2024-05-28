@@ -1,0 +1,30 @@
+#!/bin/sh
+# Copyright 2020-2022 Collabora Ltd.
+# Copyright 2021 Christian Rauch.
+# Copyright 2024 Simon McVittie
+# SPDX-License-Identifier: MIT
+
+set -eux
+
+if [ -n "${AUTOPKGTEST_ARTIFACTS-}" ]; then
+    WORKDIR="$AUTOPKGTEST_ARTIFACTS"
+else
+    WORKDIR="$(mktemp -d)"
+    trap 'cd /; rm -fr "$WORKDIR"' 0 INT QUIT ABRT PIPE TERM
+fi
+
+if [ -n "${DEB_HOST_GNU_TYPE:-}" ]; then
+    CROSS_COMPILE="$DEB_HOST_GNU_TYPE-"
+else
+    CROSS_COMPILE=
+fi
+
+srcdir="$(pwd)"
+cp debian/tests/test.cpp "$WORKDIR"
+cd "$WORKDIR"
+
+"${CROSS_COMPILE}g++" \
+    test.cpp \
+    -o test \
+    $("${CROSS_COMPILE}pkgconf" --cflags --libs mozjs-115)
+./test

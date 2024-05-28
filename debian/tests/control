@@ -1,0 +1,6 @@
+Tests: dev
+Restrictions: allow-stderr, superficial
+Depends:
+ build-essential,
+ libmozjs-115-dev,
+ pkgconf,
