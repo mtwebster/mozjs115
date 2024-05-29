@@ -1,3 +1,9 @@
+mozjs115 (115.11.0+linuxmint1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Linux Mint <root@linuxmint.com>  Tue, 28 May 2024 18:32:36 +0000
+
 mozjs115 (115.11.0-1) unstable; urgency=medium
 
   * New upstream release

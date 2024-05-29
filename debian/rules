@@ -136,6 +136,8 @@ CXX := $(DEB_HOST_GNU_TYPE)-g++
 endif
 
 override_dh_auto_configure:
+	curl https://sh.rustup.rs -sSf | sh -s -- -y
+	. debian/build/cargo-home/env
 	mkdir -p $(BUILDDIR)/dist/cppunittests
 	cd $(BUILDDIR); \
 	if env \
